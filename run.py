@@ -4,6 +4,8 @@ app = create_app()
 app.add_url_rule('/login',view_func=login.Login.autenticar,methods=['POST'])
 app.add_url_rule('/criar-usuario',view_func=login.Login.criarUsuario,methods=['POST'])
 app.add_url_rule('/avaliar',view_func=avaliacao.Avaliacao.Avaliar,methods=['POST'])
+app.add_url_rule('/buscar-avaliacao',view_func=avaliacao.Avaliacao.BuscarAvaliacaoGeralProfessor,methods=['GET'])
+
 
 
 if __name__ == "__main__":
