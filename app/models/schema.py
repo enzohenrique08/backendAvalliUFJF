@@ -3,8 +3,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # Classe base para usuários (abstrata)
 class Usuario(db.Model):
-    def __init__(self):
-        self.email = 'a'
+    def __init__(self,email,senha,tipo=None):
+        self.email = email
+        self.set_senha(senha)
+        self.tipo = tipo
     __tablename__ = 'usuarios'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -20,8 +22,10 @@ class Usuario(db.Model):
     def set_senha(self, senha):
         self.senha_hash = generate_password_hash(senha)
 
-    def check_senha(senha):
-        return check_password_hash(password=senha,pwhash=generate_password_hash(senha))
+    def check_senha(self,senha):
+        senha_hash_gerada = generate_password_hash(senha)
+        print(senha_hash_gerada)
+        return check_password_hash(self.senha_hash,senha)
 
 # Classe Aluno (herda de Usuario)
 class Aluno(Usuario):

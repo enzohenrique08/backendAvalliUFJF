@@ -7,9 +7,12 @@ class Login:
     def autenticar():
         email = request.args.get('email')
         senha = request.args.get('senha')
-        usuario = schema.Usuario.query.filter_by(email=email,senha_hash=schema.Usuario.check_senha(senha)).first()
+        usuario = schema.Usuario.query.filter_by(email=email).first()
         if usuario:
             print("Encontrado")
+            if usuario.check_senha(senha):
+                return jsonify({'mensagem':'Sucesso'})
+            return jsonify({'mensagem':'erro'})
         else:
             print("Usuário não encontrado")
-        return jsonify({'mensagem':'Sucesso'})
+            return jsonify({'mensagem':'erro'})
