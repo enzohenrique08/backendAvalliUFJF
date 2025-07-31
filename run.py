@@ -7,7 +7,8 @@ app.add_url_rule('/avaliar',view_func=avaliacao.Avaliacao.Avaliar,methods=['POST
 app.add_url_rule('/buscar-avaliacao',view_func=avaliacao.Avaliacao.BuscarAvaliacaoGeralProfessor,methods=['GET'])
 app.add_url_rule('/listar-professores',view_func=professores.Professores.listar_professores,methods=['GET'])
 app.add_url_rule('/listar-professores-nome',view_func=professores.Professores.list_professores_por_nome,methods=['GET'])
-
+app.add_url_rule('/rejeitar-professor',view_func=professores.Professores.rejeitar_professor,methods=['POST'])
+app.add_url_rule('/buscar-cards',view_func=professores.Professores.buscar_cards_professor,methods=['GET'])
 
 
 if __name__ == "__main__":

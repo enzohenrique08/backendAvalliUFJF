@@ -43,6 +43,22 @@ class Aluno(Usuario):
         'polymorphic_identity': 'aluno',
     }
 
+class Docentesemvinculo(db.Model):
+    def __init__(self,id_usuario,id_professor):
+        self.aluno_id = id_usuario
+        self.professor_id = id_professor
+    __tablename__ = 'docentesemvinculo'
+    id = db.Column(db.Integer, primary_key=True)
+    aluno_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
+    professor_id = db.Column(db.Integer, db.ForeignKey('professores.id'))
+    def salvar(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+
+
+
 # Classe Administrador (herda de Usuario)
 class Administrador(Usuario):
     __tablename__ = 'administradores'
@@ -59,6 +75,7 @@ class Professor(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
+    curso = db.Column(db.Integer,db.ForeignKey('curso.id'))
 
     avaliacoes = db.relationship('Avaliacao', backref='professor', lazy=True)
     disciplinas = db.relationship('DisciplinaProfessor', back_populates='professor')

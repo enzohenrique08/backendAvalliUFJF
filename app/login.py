@@ -17,6 +17,7 @@ class Login:
             print("Usuário não encontrado")
             return jsonify({'mensagem':'erro'})
         
+        # mudar para criar aluno ao inves de usuario
     def criarUsuario():
         email = request.form.get('email')
         senha = request.form.get('senha')
