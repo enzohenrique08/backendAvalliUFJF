@@ -1,10 +1,12 @@
-from app import avaliacao, create_app, login
+from app import avaliacao, create_app, login, professores
 
 app = create_app()
 app.add_url_rule('/login',view_func=login.Login.autenticar,methods=['POST'])
 app.add_url_rule('/criar-usuario',view_func=login.Login.criarUsuario,methods=['POST'])
 app.add_url_rule('/avaliar',view_func=avaliacao.Avaliacao.Avaliar,methods=['POST'])
 app.add_url_rule('/buscar-avaliacao',view_func=avaliacao.Avaliacao.BuscarAvaliacaoGeralProfessor,methods=['GET'])
+app.add_url_rule('/listar-professores',view_func=professores.Professores.listar_professores,methods=['GET'])
+app.add_url_rule('/listar-professores-nome',view_func=professores.Professores.list_professores_por_nome,methods=['GET'])
 
 
 
