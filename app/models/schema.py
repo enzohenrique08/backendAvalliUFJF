@@ -26,6 +26,9 @@ class Usuario(db.Model):
         senha_hash_gerada = generate_password_hash(senha)
         print(senha_hash_gerada)
         return check_password_hash(self.senha_hash,senha)
+    def salvar(self):
+        db.session.add(self)
+        db.session.commit()
 
 # Classe Aluno (herda de Usuario)
 class Aluno(Usuario):
@@ -81,6 +84,15 @@ class DisciplinaProfessor(db.Model):
 
 # Classe Avaliacao
 class Avaliacao(db.Model):
+    def __init__(self,nota1,nota2,nota3,aluno_id,professor_id,disciplina_id,comentario=None):
+        self.nota1=nota1
+        self.nota2 = nota2
+        self.nota3 = nota3
+        self.aluno_id=aluno_id
+        self.professor_id=professor_id
+        self.disciplina_id=disciplina_id
+        self.comentario = comentario
+
     __tablename__ = 'avaliacoes'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -95,3 +107,6 @@ class Avaliacao(db.Model):
 
     def media(self):
         return (self.nota1 + self.nota2 + self.nota3) / 3
+    def salvar(self):
+        db.session.add(self)
+        db.session.commit()

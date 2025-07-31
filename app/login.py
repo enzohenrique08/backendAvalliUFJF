@@ -5,8 +5,8 @@ from flask import request, jsonify
 class Login:
     @staticmethod
     def autenticar():
-        email = request.args.get('email')
-        senha = request.args.get('senha')
+        email = request.form.get('email')
+        senha = request.form.get('senha')
         usuario = schema.Usuario.query.filter_by(email=email).first()
         if usuario:
             print("Encontrado")
@@ -16,6 +16,7 @@ class Login:
         else:
             print("Usuário não encontrado")
             return jsonify({'mensagem':'erro'})
+        
     def criarUsuario():
         email = request.form.get('email')
         senha = request.form.get('senha')
