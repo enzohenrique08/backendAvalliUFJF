@@ -99,6 +99,21 @@ class DisciplinaProfessor(db.Model):
     professor = db.relationship('Professor', back_populates='disciplinas')
     disciplina = db.relationship('Disciplina', back_populates='professores')
 
+class SolicitacoesAdm(db.Model):
+    __tablename__ = 'solicitacoesdeadm'
+    id = db.Column(db.Integer, primary_key=True)
+    usuario_id = db.Column(db.Integer,db.ForeignKey('usuarios.id'))
+    status=  db.Column(db.Integer,db.ForeignKey('statuspedidoadm.id'))
+    def salvar(self):
+        db.session.add(self)
+        db.session.commit()
+
+class Statuspedidoadm(db.Model):
+    __tablename__ = 'statuspedidoadm'
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.String(20))
+
+
 # Classe Avaliacao
 class Avaliacao(db.Model):
     def __init__(self,nota1,nota2,nota3,aluno_id,professor_id,disciplina_id,comentario=None):
@@ -127,3 +142,4 @@ class Avaliacao(db.Model):
     def salvar(self):
         db.session.add(self)
         db.session.commit()
+
