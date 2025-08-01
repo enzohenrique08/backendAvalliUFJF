@@ -142,4 +142,12 @@ class Avaliacao(db.Model):
     def salvar(self):
         db.session.add(self)
         db.session.commit()
+    def to_dict(self):
+        return {
+        "id":self.id,
+        "nota1":self.nota1,
+        "nota2":self.nota2,
+        "nota3":self.nota3,
+        "comentario":self.comentario
+        }
 

@@ -12,7 +12,7 @@ app.add_url_rule('/buscar-cards',view_func=professores.Professores.buscar_cards_
 app.add_url_rule('/deletar-comentario',view_func=admin.Admin.deletar_comentario,methods=['DELETE'])
 app.add_url_rule('/aprovar-adm',view_func=admin.Admin.aprovar_adm,methods=['POST'])
 app.add_url_rule('/foto-professor',view_func=professores.Professores.foto,methods=['GET'])
-
+app.add_url_rule('/buscar-avaliacoes',view_func=avaliacao.Avaliacao.BuscarAvaliacoesProfesores,methods=['GET'])
 
 if __name__ == "__main__":
     app.run(debug=True)
