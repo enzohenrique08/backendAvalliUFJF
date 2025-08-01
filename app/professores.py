@@ -1,5 +1,7 @@
-from flask import jsonify, request
+from flask import jsonify, request, send_from_directory, abort
+from app import settings
 from app.models import schema
+import os
 class Professores:
     @staticmethod
     def listar_professores():
@@ -41,6 +43,14 @@ class Professores:
     for prof in lista_professores_filtrada
 ]
         return jsonify({'professores':professores_json})
+    @staticmethod
+    def foto():
+        professor_id = request.args.get('professor_id')
+        caminho_imagem = os.path.join(settings.MEDIA_ROOT)
 
+        if os.path.exists(caminho_imagem):
+         return send_from_directory(caminho_imagem, professor_id+".jpg")
+        else:
+         raise abort(404,"Imagem não encontrada")
 
 
