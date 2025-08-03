@@ -27,7 +27,6 @@ class Login:
         if usuarioExiste:
             return jsonify({'mensagem':'erro'})
         tipo = 'usuario'
-        print(senha)
         usuario = schema.Usuario(email,senha,tipo)
         usuario.salvar()
         return jsonify({'mensagem':'Sucesso'})

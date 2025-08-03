@@ -31,6 +31,8 @@ class Professores:
     def buscar_cards_professor():
         aluno_id = request.args.get('aluno_id')
         curso = request.args.get('curso')
+        if not aluno_id and not curso:
+           return jsonify({'mensagem':'erro'})
         lista_professores = schema.Professor.query.filter_by(curso=curso).all()
         Docentesemvinculo = schema.Docentesemvinculo.query.with_entities(schema.Docentesemvinculo.professor_id).filter_by(aluno_id=aluno_id).all()
         ids_docentes_sem_vinculo = [doc.professor_id for doc in Docentesemvinculo]
@@ -38,11 +40,12 @@ class Professores:
         professores_json = [
     {
         'id': prof.id,
-        'nome': prof.nome
+        'nome': prof.nome,
+        'disciplinas':[d.disciplina.nome for d in prof.disciplinas]
     }
     for prof in lista_professores_filtrada
 ]
-        return jsonify({'professores':professores_json})
+        return jsonify(professores_json)
     @staticmethod
     def foto():
         professor_id = request.args.get('professor_id')
