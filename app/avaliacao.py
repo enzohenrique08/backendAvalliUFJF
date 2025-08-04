@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import abort, jsonify, request
 from app.models import schema
 class Avaliacao:
     @staticmethod
@@ -13,7 +13,7 @@ class Avaliacao:
         comentario = request.form.get('comentario')
         campos = [nota1, nota2, nota3, aluno_id, professor_id, disciplina_id, comentario]
         if any(not campo for campo in campos):
-            return jsonify({'mensagem':'erro'})
+            raise abort(400,"Erro")
         avaliacao = schema.Avaliacao(nota1=nota1,nota2=nota2,nota3=nota3,comentario=comentario,disciplina_id=disciplina_id,aluno_id=aluno_id,professor_id=professor_id)
         avaliacao.salvar()
         return jsonify({'mensagem':'Sucesso'})
@@ -24,7 +24,7 @@ class Avaliacao:
     def BuscarAvaliacaoGeralProfessor():
         professor_id = request.args.get('professor_id')
         if not professor_id:
-            return jsonify({'mensagem':'erro'})
+            raise abort(400,"Erro")
         medianota1,medianota2,medianota3,comentarios,total,quantidade_nota_5,quantidade_nota_4,quantidade_nota_3,quantidade_nota_2,quantidade_nota_1=Avaliacao.pega_stats_avaliacao_professor(professor_id)
         return jsonify({'id':int(professor_id),"NotaDidatica":medianota1,'quantidade_nota_5':quantidade_nota_5,'quantidade_nota_4':quantidade_nota_4,'quantidade_nota_3':quantidade_nota_3,'quantidade_nota_2':quantidade_nota_2,'quantidade_nota_1':quantidade_nota_1,
                         "NotaDificuldadeProva":medianota2,"NotaPlanoEnisno":medianota3,'TotalAvaliacoes':total,"comentarios":comentarios})
