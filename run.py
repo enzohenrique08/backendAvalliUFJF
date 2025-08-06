@@ -1,6 +1,8 @@
+from flask_cors import CORS
 from app import admin, avaliacao, create_app, login, professores
 
 app = create_app()
+CORS(app)
 app.add_url_rule('/login',view_func=login.Login.autenticar,methods=['POST'])
 app.add_url_rule('/criar-usuario',view_func=login.Login.criarUsuario,methods=['POST'])
 app.add_url_rule('/avaliar',view_func=avaliacao.Avaliacao.Avaliar,methods=['POST'])
@@ -15,4 +17,4 @@ app.add_url_rule('/foto-professor',view_func=professores.Professores.foto,method
 app.add_url_rule('/buscar-avaliacoes',view_func=avaliacao.Avaliacao.BuscarAvaliacoesProfesores,methods=['GET'])
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)

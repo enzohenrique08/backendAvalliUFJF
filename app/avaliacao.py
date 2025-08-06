@@ -11,7 +11,7 @@ class Avaliacao:
         professor_id = request.form.get('professor_id')
         disciplina_id = request.form.get('disciplina_id')
         comentario = request.form.get('comentario')
-        campos = [nota1, nota2, nota3, aluno_id, professor_id, disciplina_id, comentario]
+        campos = [nota1, nota2, nota3, aluno_id, professor_id, disciplina_id]
         if any(not campo for campo in campos):
             raise abort(400,"Erro")
         avaliacao = schema.Avaliacao(nota1=nota1,nota2=nota2,nota3=nota3,comentario=comentario,disciplina_id=disciplina_id,aluno_id=aluno_id,professor_id=professor_id)
